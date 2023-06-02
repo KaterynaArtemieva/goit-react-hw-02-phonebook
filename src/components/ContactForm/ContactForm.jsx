@@ -11,8 +11,12 @@ import {
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const nameRegExp = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
 const ContactSchema = Yup.object().shape({
-  name: Yup.string().trim().required('Required field!'),
+  name: Yup.string()
+    .trim()
+    .matches(nameRegExp, 'Name is not valid')
+    .required('Required field!'),
   number: Yup.string()
     .trim()
     .matches(phoneRegExp, 'Phone number is not valid')
